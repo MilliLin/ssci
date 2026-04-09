@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测一测你的 SSCI 潜力</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="quiz-wrapper">
+        <h1>📊 测一测你的 SSCI 潜力</h1>
+        <p class="subtitle">基于学术玄学与实力的深度建模</p>
+
+        <section class="quiz-card" id="part-subject">
+            <h3>01. 你的研究领域 🏛️</h3>
+            <div class="options">
+                <button class="subject-btn" data-id="group_02_12">经济(02)、管理(12)、法学(03)</button>
+                <button class="subject-btn" data-id="group_01_05_06">哲学(01)、文学(05)、历史(06)、艺术(13)</button>
+                <button class="subject-btn" data-id="group_04_14">教育(04)、社会/交叉学科(14)</button>
+                <button class="subject-btn" data-id="group_07_10">理(07)、工(08)、农(09)、医学(10)</button>
+                <button class="subject-btn" data-id="group_military">军事学、前沿/新兴交叉学科</button>
+            </div>
+        </section>
+
+        <div style="padding: 40px 0;">
+            <button id="submit-quiz">查看我的 SSCI 段位 🚀</button>
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="hidden">
+        <div class="loader"></div>
+        <p>正在提交匿名评审...</p>
+    </div>
+
+    <div id="result-overlay" class="hidden">
+        <div class="result-card">
+            <h1 id="rank-title"></h1>
+            <p id="rank-desc"></p>
+            <div id="share-box" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 0.9rem; color: #666;">📢 转发建议：</p>
+                <p id="share-text" style="font-style: italic; color: #333; font-weight: bold;"></p>
+            </div>
+            <button onclick="resetQuiz()">不服气，再测一次 🔄</button>
+        </div>
