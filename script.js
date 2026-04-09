@@ -62,23 +62,21 @@ function getRank(score) {
 
 // 5. 提交按钮逻辑：计算与加载动画
 document.getElementById('submit-quiz').addEventListener('click', function() {
-  if (!userStats.subject) {
-    alert("请先选择你的学科门类！");
-    // 在展示结果的代码块中添加：
-document.getElementById('share-text').innerText = rank.share;
-    return;
-  }
+    // A. 基础检查：必须选了第一题学科
+    if (!userStats.subject) {
+        alert("请先选择你的学科门类！");
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // 贴心：自动滚回第一题
+        return;
+    }
 
-  // 显示加载层
-  const loader = document.getElementById('loading-overlay');
-  loader.classList.remove('hidden');
-  loader.style.display = 'flex';
+    // B. 显示加载动画层 (模拟审稿仪式感)
+    const loader = document.getElementById('loading-overlay');
+    loader.style.display = 'flex'; 
 
-  // 模拟“匿名评审”过程
-  setTimeout(() => {
+    // C. 开始计算 (在审稿的 2 秒延迟期间进行)
     const w = subjectWeights[userStats.subject];
     
-    // 加权总分计算
+    // 加权总分公式
     let rawScore = 
       (userStats.social * w.social) + 
       (userStats.learning * w.learning) +
@@ -86,17 +84,26 @@ document.getElementById('share-text').innerText = rank.share;
       (userStats.luck * w.luck) +
       (userStats.platform * w.platform);
 
-    // 映射到百分制 (根据题目数量和权重均值估算系数)
+    // 映射到百分制（系数可以根据你题目的满分进行微调）
     const finalScore = Math.min(100, Math.round(rawScore * 1.5));
     const rank = getRank(finalScore);
 
-    // 填充并展示结果
-    loader.style.display = 'none';
-    document.getElementById('result-overlay').classList.remove('hidden');
-    document.getElementById('result-overlay').style.display = 'flex';
-    document.getElementById('rank-title').innerText = rank.title;
-    document.getElementById('rank-desc').innerText = rank.desc;
-  }, 2000); // 2秒后出结果
+    // D. 模拟“审稿时间”结束后展示结果
+    setTimeout(() => {
+        // 1. 隐藏加载动画
+        loader.style.display = 'none';
+
+        // 2. 填充结果数据
+        document.getElementById('rank-title').innerText = rank.title;
+        document.getElementById('rank-desc').innerText = rank.desc;
+        document.getElementById('share-text').innerText = rank.share;
+
+        // 3. 显示结果弹窗
+        const resultOverlay = document.getElementById('result-overlay');
+        resultOverlay.style.display = 'flex';
+        
+        console.log("最终加权得分:", finalScore);
+    }, 2000); // 2000毫秒 = 2秒
 });
 
 window.resetQuiz = function() { // 使用 window. 定义确保 HTML 能找到它
