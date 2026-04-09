@@ -140,3 +140,23 @@ button:hover {
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
 }
+
+/* 强制隐藏 */
+.hidden { 
+  display: none !important; 
+}
+
+/* 修正遮罩层的定位：确保它们全屏覆盖且初始隐藏 */
+#loading-overlay, #result-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98); /* 稍微调高不透明度，挡住后面的题目 */
+  z-index: 9999; /* 确保在最上层 */
+  display: none; /* 默认隐藏 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
